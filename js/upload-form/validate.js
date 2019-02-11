@@ -11,12 +11,14 @@
 
 		if (customErrorMessage != null) {
 			textHashtagsInput.setCustomValidity(customErrorMessage);
+			textHashtagsInput.style.outline = 'red auto 5px';
 		}
 	});
 
 	textHashtagsInput.addEventListener('input', function() {
 		if (textHashtagsInput.validity.customError !== '') {
 			textHashtagsInput.setCustomValidity('');
+			textHashtagsInput.style.outline = '-webkit-focus-ring-color auto 5px';
 		}
 	});
 

@@ -2,19 +2,7 @@
 	var MIN_COMMENT_AUTHOR_PICTURE_NUMBER = 1;
 	var MAX_COMMENT_AUTHOR_PICTURE_NUMBER = 6;
 
-	var addEventListenerFunction = function (pictureInfo, pictureElement) {
-		pictureElement.addEventListener('click', function() {
-			renderBigPictureItem(pictureInfo);
-		});
-	}
-	var picturesItems = document.querySelectorAll('.picture');
-	for (var i = 0; i < window.picturesInfo.length; i++) {
-		addEventListenerFunction(window.picturesInfo[i], picturesItems[i]);
-	}
-
-	var bigPictureItem = document.querySelector('.big-picture');
-	
-	function renderBigPictureItem(pictureInfo) {
+	window.renderBigPictureItem = function(pictureInfo) {
 		var bigPictureItem = document.querySelector('.big-picture');
 
 		bigPictureItem.querySelector('.big-picture__img').querySelector('img').src = pictureInfo.url;
@@ -58,16 +46,14 @@
 
 		var commentAuthorImg = document.createElement('img');
 		commentAuthorImg.classList.add('social__picture');
-		var randomAuthorImgNumber =
-			window.mathUtils.createRandomIntegerNumber(MIN_COMMENT_AUTHOR_PICTURE_NUMBER, MAX_COMMENT_AUTHOR_PICTURE_NUMBER);
-		commentAuthorImg.src = 'img/avatar-' + randomAuthorImgNumber + '.svg';
+		commentAuthorImg.src = comment.avatar;
 		commentAuthorImg.alt = 'Аватар комментатора фотографии';
 		commentAuthorImg.width = '35';
 		commentAuthorImg.height = '35';
 
 		var commentText = document.createElement('p');
 		commentText.classList.add('social__text');
-		commentText.textContent = comment;
+		commentText.textContent = comment.message;
 
 		commentItem.appendChild(commentAuthorImg);
 		commentItem.appendChild(commentText);
