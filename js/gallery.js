@@ -1,6 +1,7 @@
 (function() {
 	var URL = 'https://js.dump.academy/kekstagram/data';
-	var NEW_PICTURES_COUNT = 10;
+	var FILTERED_NEW_PICTURES_COUNT = 10;
+	var DEBOUNCE_INTERVAL = 500;
 	
 	window.backend.load(onSuccess, onError, URL);
 
@@ -8,7 +9,7 @@
 		renderGallery(picturesInfo);
 
 		var filteredPopularPicturesInfo = picturesInfo.slice();
-		var filteredNewPicturesInfo = picturesInfo.slice(0, NEW_PICTURES_COUNT).sort(compareRandom);
+		var filteredNewPicturesInfo = picturesInfo.slice(0, FILTERED_NEW_PICTURES_COUNT).sort(compareRandom);
 		var filteredDiscussedPicturesInfo = picturesInfo.slice().sort(compareDiscussed);
 
 		var filterPopularButton = document.querySelector('#filter-popular');
@@ -24,20 +25,17 @@
 
 		function onfilterPopularButtonClick() {
 			switchActiveButton(filterPopularButton, filterNewButton, filterDiscussedButton);
-			removeGallery();
-			renderGallery(filteredPopularPicturesInfo);
+			updateGallery(filteredPopularPicturesInfo);
 		}
 
 		function onfilterNewButtonClick() {
 			switchActiveButton(filterNewButton, filterPopularButton, filterDiscussedButton);
-			removeGallery();
-			renderGallery(filteredNewPicturesInfo);
+			updateGallery(filteredNewPicturesInfo);
 		}
 
 		function onfilterDiscussedButtonClick() {
 			switchActiveButton(filterDiscussedButton, filterPopularButton, filterNewButton);
-			removeGallery();
-			renderGallery(filteredDiscussedPicturesInfo);
+			updateGallery(filteredDiscussedPicturesInfo);
 		}
 	}
 
@@ -59,6 +57,19 @@
 		if (!activeButton.classList.contains('img-filters__button--active')) {
 			activeButton.classList.add('img-filters__button--active');
 		}
+	}
+
+	var timerID = null;
+	function updateGallery(picturesInfo) {
+		if (timerID) {
+			clearTimeout(timerID);
+		}
+		timerID = setTimeout(showFilteredGallery, DEBOUNCE_INTERVAL, picturesInfo);
+	}
+
+	function showFilteredGallery(filteredPicturesInfo) {
+		removeGallery();
+		renderGallery(filteredPicturesInfo);
 	}
 
 	function removeGallery() {
