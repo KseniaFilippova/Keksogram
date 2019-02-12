@@ -2,74 +2,73 @@
 	var URL = 'https://js.dump.academy/kekstagram/data';
 	var FILTERED_NEW_PICTURES_COUNT = 10;
 	var DEBOUNCE_INTERVAL = 500;
+
+	var timerID = null;
 	
 	window.backend.load(onSuccess, onError, URL);
 
 	function onSuccess(picturesInfo) {
-		renderGallery(picturesInfo);
+		var filterButtons = Array.from(document.querySelectorAll('.img-filters__button'));
+		var activeFilterButton = filterButtons.find(function(filterButton) {
+			return filterButton.classList.contains('img-filters__button--active');
+		});
+		renderGallery(createFilteredPicturesInfo(picturesInfo.slice(), activeFilterButton.id));
 
-		var filteredPopularPicturesInfo = picturesInfo.slice();
-		var filteredNewPicturesInfo = picturesInfo.slice(0, FILTERED_NEW_PICTURES_COUNT).sort(compareRandom);
-		var filteredDiscussedPicturesInfo = picturesInfo.slice().sort(compareDiscussed);
-
-		var filterPopularButton = document.querySelector('#filter-popular');
-		var filterNewButton = document.querySelector('#filter-new');
-		var filterDiscussedButton = document.querySelector('#filter-discussed');
-
-		filterPopularButton.addEventListener('click', onfilterPopularButtonClick);
-		filterNewButton.addEventListener('click', onfilterNewButtonClick);
-		filterDiscussedButton.addEventListener('click', onfilterDiscussedButtonClick);
+		filterButtons.forEach(function(filterButton) {
+			filterButton.addEventListener('click', onFilterButtonClick);
+		});
 
 		var imgFilters = document.querySelector('.img-filters');
 		imgFilters.classList.remove('img-filters--inactive');
 
-		function onfilterPopularButtonClick() {
-			switchActiveButton(filterPopularButton, filterNewButton, filterDiscussedButton);
-			updateGallery(filteredPopularPicturesInfo);
+		function onFilterButtonClick(evt) {
+			switchActiveFilterButton(evt.target);
+			debounceUpdateGallery(createFilteredPicturesInfo(picturesInfo.slice(), evt.target.id));
 		}
+	}
 
-		function onfilterNewButtonClick() {
-			switchActiveButton(filterNewButton, filterPopularButton, filterDiscussedButton);
-			updateGallery(filteredNewPicturesInfo);
-		}
+	function switchActiveFilterButton(activeFilterButton) {
+		var filterButtons = document.querySelectorAll('.img-filters__button');
+		filterButtons.forEach(function(filterButton) {
+			if (filterButton.classList.contains('img-filters__button--active')) {
+				filterButton.classList.remove('img-filters__button--active');
+			}
+		});
 
-		function onfilterDiscussedButtonClick() {
-			switchActiveButton(filterDiscussedButton, filterPopularButton, filterNewButton);
-			updateGallery(filteredDiscussedPicturesInfo);
-		}
+		activeFilterButton.classList.add('img-filters__button--active');
+	}
+
+	function createFilteredPicturesInfo(picturesInfo, filterButtonId) {
+		switch (filterButtonId) {
+			case 'filter-popular':
+				return picturesInfo;
+			case 'filter-new':
+				picturesInfo.sort(compareRandom);
+				picturesInfo.length = FILTERED_NEW_PICTURES_COUNT;
+				return picturesInfo;
+			case 'filter-discussed':
+				return picturesInfo.sort(compareCommentsLength);
+		}	
 	}
 
 	function compareRandom(a, b) {
  		return Math.random() - 0.5;
 	}
 
-	function compareDiscussed(a, b) {
+	function compareCommentsLength(a, b) {
 		return b.comments.length - a.comments.length;
 	}
 
-	function switchActiveButton(activeButton, firstUnactiveButton, secondUnactiveButton) {
-		if (firstUnactiveButton.classList.contains('img-filters__button--active')) {
-			firstUnactiveButton.classList.remove('img-filters__button--active');
-		} else if (secondUnactiveButton.classList.contains('img-filters__button--active')) {
-			secondUnactiveButton.classList.remove('img-filters__button--active');
-		}
-
-		if (!activeButton.classList.contains('img-filters__button--active')) {
-			activeButton.classList.add('img-filters__button--active');
-		}
-	}
-
-	var timerID = null;
-	function updateGallery(picturesInfo) {
+	function debounceUpdateGallery(picturesInfo) {
 		if (timerID) {
 			clearTimeout(timerID);
 		}
-		timerID = setTimeout(showFilteredGallery, DEBOUNCE_INTERVAL, picturesInfo);
+		timerID = setTimeout(updateGallery, DEBOUNCE_INTERVAL, picturesInfo);
 	}
 
-	function showFilteredGallery(filteredPicturesInfo) {
+	function updateGallery(picturesInfo) {
 		removeGallery();
-		renderGallery(filteredPicturesInfo);
+		renderGallery(picturesInfo);
 	}
 
 	function removeGallery() {
