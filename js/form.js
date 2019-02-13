@@ -3,8 +3,10 @@
 	var DEFAULT_SCALE_VALUE = 100;
 
 	var fileInput = document.querySelector('#upload-file');
+	var uploadPicture = document.querySelector('.img-upload__preview img');
 	fileInput.addEventListener('change', function() {
 		openImgEditor();
+		window.showUploadPicture(fileInput, uploadPicture);
 	});
 
 	var imgEditor = document.querySelector('.img-upload__overlay');
@@ -14,7 +16,6 @@
 	});
 
 	var form = document.querySelector('.img-upload__form');
-	var uploadPicture = imgEditor.querySelector('.img-upload__preview img');
 	var scaleValueInput = imgEditor.querySelector('.scale__control--value');
 	var scaleSmallerControl = imgEditor.querySelector('.scale__control--smaller');
 	var scaleBiggerControl = imgEditor.querySelector('.scale__control--bigger');
