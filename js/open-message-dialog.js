@@ -15,9 +15,18 @@
 		document.body.insertAdjacentElement('beforebegin', messageElement);
 
 		var closeButton = messageElement.querySelector('.success__button');
-		closeButton.addEventListener('click', function() {
+		closeButton.addEventListener('click', onCloseButtonClick);
+		document.addEventListener('keydown', onDocumentKeydown);
+	
+		function onCloseButtonClick() {
 			removeMessageDialog('.success');
-		});		
+			closeButton.removeEventListener('click', onCloseButtonClick);
+		}
+
+		function onDocumentKeydown() {
+			removeMessageDialog('.success');
+			document.removeEventListener('keydown', onDocumentKeydown);
+		}
 	}
 
 	function openErrorMessageDialog(message) {
@@ -29,9 +38,18 @@
 		document.body.insertAdjacentElement('beforebegin', messageElement);
 
 		var closeButton = messageElement.querySelector('.error__button');
-		closeButton.addEventListener('click', function() {
+		closeButton.addEventListener('click', onCloseButtonClick);
+		document.addEventListener('keydown', onDocumentKeydown);
+	
+		function onCloseButtonClick() {
 			removeMessageDialog('.error');
-		});
+			closeButton.removeEventListener('click', onCloseButtonClick);
+		}
+
+		function onDocumentKeydown() {
+			removeMessageDialog('.error');
+			document.removeEventListener('keydown', onDocumentKeydown);
+		}
 	}
 
 	function removeMessageDialog(elementSelector) {
