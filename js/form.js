@@ -6,7 +6,7 @@
 	var uploadPicture = document.querySelector('.img-upload__preview img');
 	fileInput.addEventListener('change', function() {
 		openImgEditor();
-		window.showUploadPicture(fileInput, uploadPicture);
+		window.setUploadPictureSrc(fileInput, uploadPicture);
 	});
 
 	var imgEditor = document.querySelector('.img-upload__overlay');
