@@ -5,7 +5,7 @@
 	var MIN_SCALE_VALUE = 25;
 	var SCALE_STEP = 25;
 	
-	window.scale = {
+	window.scaleUtils = {
 		decreaseScale: function(valueInput, pictureElement) {
 			var value = parseInt(valueInput.value);
 			var newValue = value - SCALE_STEP;

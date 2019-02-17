@@ -3,7 +3,7 @@
 (function() {
 	var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-	window.setUploadPictureSrc = function(fileInput, uploadPicture) {
+	window.setImgElementSrc = function(fileInput, imgElement) {
 		var file = fileInput.files[0];
 		var fileName = file.name.toLowerCase();
 
@@ -14,7 +14,7 @@
 		if (isCorrectFileType) {
 			var reader = new FileReader();
 			reader.addEventListener('load', function() {
-				uploadPicture.src = reader.result;
+				imgElement.src = reader.result;
 			});
 			reader.readAsDataURL(file);
 		}

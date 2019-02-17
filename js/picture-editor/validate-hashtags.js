@@ -15,9 +15,13 @@
 
 			if (hashtag.charAt(0) !== '#') {
 				return 'Хэш-тег должен начинаться с символа # (решётка)';
-			} else if (hashtag === '#') {
+			}
+
+			if (hashtag === '#') {
 				return 'Хеш-тег не может состоять только из одной решётки';
-			} else if (hashtag.length > MAX_HASHTAG_LENGTH) {
+			}
+			
+			if (hashtag.length > MAX_HASHTAG_LENGTH) {
 				return 'Максимальная длина одного хэш-тега 20 символов, включая решётку';
 			}
 		}
@@ -35,10 +39,10 @@
 
 	function areHashtagsUnique(hashtagsArr) {
 		for (var i = 0; i < hashtagsArr.length - 1; i++) {
-			firstLowerCaseHashtag = hashtagsArr[i].toLowerCase();
+			var firstLowerCaseHashtag = hashtagsArr[i].toLowerCase();
 
 			for (var j = i + 1; j < hashtagsArr.length; j++) {
-				secondLowerCaseHashtag = hashtagsArr[j].toLowerCase();
+				var secondLowerCaseHashtag = hashtagsArr[j].toLowerCase();
 
 				if (firstLowerCaseHashtag === secondLowerCaseHashtag) {
 					return false;

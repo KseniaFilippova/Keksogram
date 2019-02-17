@@ -7,9 +7,9 @@
 
 	var timerID = null;
 	
-	window.backend.load(onSuccess, onError, URL);
+	window.backend.load(onSuccessLoad, onErrorLoad, URL);
 
-	function onSuccess(picturesInfo) {
+	function onSuccessLoad(picturesInfo) {
 		var filterButtons = Array.from(document.querySelectorAll('.img-filters__button'));
 		var activeFilterButton = filterButtons.find(function(filterButton) {
 			return filterButton.classList.contains('img-filters__button--active');
@@ -125,7 +125,7 @@
 		});
 	}
 
-	function onError(errorMessage) {
+	function onErrorLoad(errorMessage) {
 		window.openMessageDialog(errorMessage);
 	}
 })();
