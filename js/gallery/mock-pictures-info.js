@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	var PICTURES_QUANTITY = 25;
 	var MIN_PICTURE_NUMBER = 1;
@@ -26,7 +28,7 @@
 		'Вот это тачка!'
 	];
 
-	window.picturesInfo = createRandomPicturesInfo(PICTURES_QUANTITY);
+	window.mockPicturesInfo = createRandomPicturesInfo(PICTURES_QUANTITY);
 
 	function createRandomPicturesInfo(picturesQuantity) {
 		var picturesInfo = [];

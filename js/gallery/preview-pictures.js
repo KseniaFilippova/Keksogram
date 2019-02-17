@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	var URL = 'https://js.dump.academy/kekstagram/data';
 	var FILTERED_NEW_PICTURES_COUNT = 10;
@@ -43,16 +45,12 @@
 			case 'filter-popular':
 				return picturesInfo;
 			case 'filter-new':
-				picturesInfo.sort(compareRandom);
+				picturesInfo.sort(window.mathUtils.compareRandom);
 				picturesInfo.length = FILTERED_NEW_PICTURES_COUNT;
 				return picturesInfo;
 			case 'filter-discussed':
 				return picturesInfo.sort(compareCommentsLength);
 		}	
-	}
-
-	function compareRandom(a, b) {
- 		return Math.random() - 0.5;
 	}
 
 	function compareCommentsLength(a, b) {
@@ -123,7 +121,7 @@
 
 	function addPictureEventListener(pictureInfo, pictureElement) {
 		pictureElement.addEventListener('click', function() {
-			window.renderBigPictureItem(pictureInfo);
+			window.renderModalPicture(pictureInfo);
 		});
 	}
 

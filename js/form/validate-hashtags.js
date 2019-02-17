@@ -1,33 +1,15 @@
+'use strict';
+
 (function() {
 	var MAX_HASHTAGS_COUNT = 5;
 	var MAX_HASHTAG_LENGTH = 20;
 
-	var textHashtagsInput = document.querySelector('.text__hashtags');
-	var imgUploadSubmit = document.querySelector('.img-upload__submit');
-	
-	imgUploadSubmit.addEventListener('click', function() {
-		var hashtagsString = textHashtagsInput.value;
-		var customErrorMessage = validateHashtags(hashtagsString);
-
-		if (customErrorMessage != null) {
-			textHashtagsInput.setCustomValidity(customErrorMessage);
-			textHashtagsInput.style.outline = 'red auto 5px';
-		}
-	});
-
-	textHashtagsInput.addEventListener('input', function() {
-		if (textHashtagsInput.validity.customError !== '') {
-			textHashtagsInput.setCustomValidity('');
-			textHashtagsInput.style.outline = '-webkit-focus-ring-color auto 5px';
-		}
-	});
-
-	function validateHashtags(hashtagsString) {
-		if (hashtagsString === '') {
+	window.validateHashtags = function(hashtags) {
+		if (hashtags === '') {
 			return null;
 		}
 
-		var hashtagsArr = hashtagsString.trim().split(' ');
+		var hashtagsArr = hashtags.trim().split(' ');
 		for (var i = 0; i < hashtagsArr.length; i++) {
 			var hashtag = hashtagsArr[i];
 

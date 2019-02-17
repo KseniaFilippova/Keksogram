@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	var EFFECT_LEVEL_INPUT_DEFAULT_VALUE = 100;
 
@@ -8,8 +10,8 @@
 	var effectLevelLine = effectLevelControl.querySelector('.effect-level__line');
 	var effectLevelDepthLine = effectLevelControl.querySelector('.effect-level__depth');
 
-	window.formEffects = {
-		onListClick: function(evt) {
+	window.formPictureEffect = {
+		switch: function(evt) {
 			if (evt.target.classList.contains('effects__radio')) {
 				updateControl(EFFECT_LEVEL_INPUT_DEFAULT_VALUE);
 				uploadPicture.style.filter = getFilter(evt.target.id, EFFECT_LEVEL_INPUT_DEFAULT_VALUE);
@@ -22,11 +24,11 @@
 				}
 			}
 		},
-		onPinMousedown: function() {
+		updateByMousemove: function(evt) {
 			document.addEventListener('mousemove', onDocumentMousemove);
 			document.addEventListener('mouseup', onDocumentMouseup);
 		},
-		onLineClick: function(evt) {
+		updateByLineClick: function(evt) {
 			changeEffectLevel(evt.clientX);
 		}
 	}

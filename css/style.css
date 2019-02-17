@@ -765,6 +765,10 @@ main {
   border-radius: 5px;
 }
 
+.hashtags-invalid {
+  outline: red auto 5px;
+}
+
 
 /**
  * Кнопка для отправки изображения
@@ -822,7 +826,7 @@ main {
 /* Окно полноэкранного просмотра изображения
    ========================================================================== */
 
-.big-picture__preview {
+.modal-picture__preview {
   position: absolute;
   top: 60px;
   left: 50%;
@@ -837,7 +841,7 @@ main {
           transform: translateX(-50%);
 }
 
-.big-picture__img img {
+.modal-picture__img img {
   display: block;
 }
 
@@ -1063,7 +1067,7 @@ main {
   border-top: 1px solid #cccccc;
 }
 
-.big-picture__cancel {
+.modal-picture__cancel {
   position: absolute;
   top: 0;
   left: 100%;

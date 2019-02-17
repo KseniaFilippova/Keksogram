@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	window.backend = { 
 		load: function(onSuccess, onError, url) {

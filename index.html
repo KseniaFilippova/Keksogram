@@ -135,17 +135,17 @@
     </section>
 
     <!-- Полноэкранный показ изображения -->
-    <section class="big-picture  overlay  hidden">
-      <h2 class="big-picture__title  visually-hidden">Просмотр фотографии</h2>
-      <div class="big-picture__preview">
+    <section class="modal-picture  overlay  hidden">
+      <h2 class="modal-picture__title  visually-hidden">Просмотр фотографии</h2>
+      <div class="modal-picture__preview">
 
         <!-- Просмотр изображения -->
-        <div class="big-picture__img">
+        <div class="modal-picture__img">
           <img src="img/logo-background-3.jpg" alt="Девушка в купальнике" width="600" height="600">
         </div>
 
         <!-- Информация об изображении. Подпись, комментарии, количество лайков -->
-        <div class="big-picture__social  social">
+        <div class="modal-picture__social  social">
           <div class="social__header">
             <img class="social__picture" src="img/avatar-1.svg" alt="Аватар автора фотографии" width="35" height="35">
             <p class="social__caption">Тестим новую камеру! =)</p>
@@ -168,7 +168,7 @@
         </div>
 
         <!-- Кнопка для выхода из полноэкранного просмотра изображения -->
-        <button type="reset" class="big-picture__cancel  cancel" id="picture-cancel">Закрыть</button>
+        <button type="reset" class="modal-picture__cancel  cancel" id="picture-cancel">Закрыть</button>
       </div>
     </section>
   </main>
@@ -230,13 +230,12 @@
   <script src="js/keyboard-utils.js"></script>
   <script src="js/backend.js"></script>
   <script src="js/open-message-dialog.js"></script>
-  <script src="js/scale.js"></script>
-  <script src="js/set-upload-picture-src.js"></script>
-  <script src="js/gallery.js"></script>
-  <script src="js/big-picture.js"></script>
-  <script src="js/effects.js"></script>
-  <script src="js/hashtags-validate.js"></script>
-  <script src="js/form.js"></script>
-
+  <script src="js/gallery/preview-pictures.js"></script>
+  <script src="js/gallery/render-modal-picture.js"></script>
+  <script src="js/form/form-open-close.js"></script>
+  <script src="js/form/form-picture-effect.js"></script>
+  <script src="js/form/validate-hashtags.js"></script>
+  <script src="js/form/scale.js"></script>
+  <script src="js/form/set-upload-picture-src.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	window.openMessageDialog = function(errorMessage) {
 		if (errorMessage == null) {

@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 	var MAX_SCALE_VALUE = 100;
 	var MIN_SCALE_VALUE = 25;
